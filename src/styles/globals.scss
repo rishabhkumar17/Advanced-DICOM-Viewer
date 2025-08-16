@@ -1,0 +1,607 @@
+// Global Styles for Advanced DICOM Viewer
+// Professional Dark Theme Medical Application
+
+@import './variables.scss';
+
+// =============================================================================
+// CSS RESET & BASE STYLES
+// =============================================================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px; // Base font size
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: $font-family-primary;
+  font-size: $text-base;
+  font-weight: $font-weight-normal;
+  line-height: $leading-normal;
+  color: $text-primary;
+  background: $bg-primary;
+  height: 100%;
+  overflow: hidden; // Prevent body scroll in medical viewer
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root,
+app-root {
+  height: 100%;
+  display: block;
+}
+
+// =============================================================================
+// TYPOGRAPHY RESET
+// =============================================================================
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: $font-weight-semibold;
+  line-height: $leading-tight;
+  color: $text-primary;
+  letter-spacing: $tracking-tight;
+}
+
+h1 {
+  font-size: $text-3xl;
+  font-weight: $font-weight-bold;
+}
+
+h2 {
+  font-size: $text-2xl;
+  font-weight: $font-weight-semibold;
+}
+
+h3 {
+  font-size: $text-xl;
+  font-weight: $font-weight-semibold;
+}
+
+h4 {
+  font-size: $text-lg;
+  font-weight: $font-weight-medium;
+}
+
+h5 {
+  font-size: $text-base;
+  font-weight: $font-weight-medium;
+}
+
+h6 {
+  font-size: $text-sm;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: $tracking-wide;
+}
+
+p {
+  margin: 0;
+  color: $text-secondary;
+  line-height: $leading-relaxed;
+}
+
+small {
+  font-size: $text-sm;
+  color: $text-muted;
+}
+
+// =============================================================================
+// INTERACTIVE ELEMENTS
+// =============================================================================
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  outline: none;
+  
+  &:focus-visible {
+    @include focus-ring;
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+a {
+  color: $primary-blue;
+  text-decoration: none;
+  transition: $transition-colors;
+  
+  &:hover {
+    color: $primary-blue-hover;
+  }
+  
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// =============================================================================
+// UTILITY CLASSES
+// =============================================================================
+
+// Text utilities
+.text-primary { color: $text-primary; }
+.text-secondary { color: $text-secondary; }
+.text-muted { color: $text-muted; }
+.text-inverse { color: $text-inverse; }
+
+.text-xs { font-size: $text-xs; }
+.text-sm { font-size: $text-sm; }
+.text-base { font-size: $text-base; }
+.text-lg { font-size: $text-lg; }
+.text-xl { font-size: $text-xl; }
+.text-2xl { font-size: $text-2xl; }
+.text-3xl { font-size: $text-3xl; }
+
+.font-light { font-weight: $font-weight-light; }
+.font-normal { font-weight: $font-weight-normal; }
+.font-medium { font-weight: $font-weight-medium; }
+.font-semibold { font-weight: $font-weight-semibold; }
+.font-bold { font-weight: $font-weight-bold; }
+
+.leading-tight { line-height: $leading-tight; }
+.leading-normal { line-height: $leading-normal; }
+.leading-relaxed { line-height: $leading-relaxed; }
+
+.tracking-tight { letter-spacing: $tracking-tight; }
+.tracking-normal { letter-spacing: $tracking-normal; }
+.tracking-wide { letter-spacing: $tracking-wide; }
+
+// Background utilities
+.bg-primary { background: $bg-primary; }
+.bg-secondary { background: $bg-secondary; }
+.bg-tertiary { background: $bg-tertiary; }
+
+.bg-gradient-primary { background: $gradient-primary; }
+.bg-gradient-surface { background: $gradient-surface; }
+
+// Spacing utilities
+.p-0 { padding: 0; }
+.p-1 { padding: $space-1; }
+.p-2 { padding: $space-2; }
+.p-3 { padding: $space-3; }
+.p-4 { padding: $space-4; }
+.p-6 { padding: $space-6; }
+.p-8 { padding: $space-8; }
+
+.m-0 { margin: 0; }
+.m-1 { margin: $space-1; }
+.m-2 { margin: $space-2; }
+.m-3 { margin: $space-3; }
+.m-4 { margin: $space-4; }
+.m-6 { margin: $space-6; }
+.m-8 { margin: $space-8; }
+
+// Flexbox utilities
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.flex-1 { flex: 1; }
+.flex-none { flex: none; }
+
+// Grid utilities
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.gap-1 { gap: $space-1; }
+.gap-2 { gap: $space-2; }
+.gap-3 { gap: $space-3; }
+.gap-4 { gap: $space-4; }
+.gap-6 { gap: $space-6; }
+.gap-8 { gap: $space-8; }
+
+// Border utilities
+.border { border: 1px solid $border-primary; }
+.border-secondary { border: 1px solid $border-secondary; }
+.border-none { border: none; }
+
+.rounded-none { border-radius: $radius-none; }
+.rounded-sm { border-radius: $radius-sm; }
+.rounded-md { border-radius: $radius-md; }
+.rounded-lg { border-radius: $radius-lg; }
+.rounded-xl { border-radius: $radius-xl; }
+.rounded-2xl { border-radius: $radius-2xl; }
+.rounded-full { border-radius: $radius-full; }
+
+// Shadow utilities
+.shadow-sm { box-shadow: $shadow-sm; }
+.shadow-md { box-shadow: $shadow-md; }
+.shadow-lg { box-shadow: $shadow-lg; }
+.shadow-xl { box-shadow: $shadow-xl; }
+.shadow-2xl { box-shadow: $shadow-2xl; }
+
+.shadow-primary { box-shadow: $shadow-primary; }
+.shadow-secondary { box-shadow: $shadow-secondary; }
+.shadow-success { box-shadow: $shadow-success; }
+.shadow-error { box-shadow: $shadow-error; }
+
+// Position utilities
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.top-0 { top: 0; }
+.right-0 { right: 0; }
+.bottom-0 { bottom: 0; }
+.left-0 { left: 0; }
+
+// Overflow utilities
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+.overflow-scroll { overflow: scroll; }
+.overflow-x-hidden { overflow-x: hidden; }
+.overflow-y-hidden { overflow-y: hidden; }
+.overflow-x-auto { overflow-x: auto; }
+.overflow-y-auto { overflow-y: auto; }
+
+// Display utilities
+.block { display: block; }
+.inline-block { display: inline-block; }
+.inline { display: inline; }
+.hidden { display: none; }
+
+// Width & Height utilities
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.w-auto { width: auto; }
+.h-auto { height: auto; }
+
+// Opacity utilities
+.opacity-0 { opacity: 0; }
+.opacity-25 { opacity: 0.25; }
+.opacity-50 { opacity: 0.5; }
+.opacity-75 { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
+
+// Z-index utilities
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+
+// Cursor utilities
+.cursor-pointer { cursor: pointer; }
+.cursor-not-allowed { cursor: not-allowed; }
+.cursor-default { cursor: default; }
+
+// Selection utilities
+.select-none { user-select: none; }
+.select-text { user-select: text; }
+.select-all { user-select: all; }
+
+// Transition utilities
+.transition { transition: $transition-all; }
+.transition-colors { transition: $transition-colors; }
+.transition-transform { transition: $transition-transform; }
+.transition-opacity { transition: $transition-opacity; }
+
+// Transform utilities
+.transform { transform: translateZ(0); }
+.scale-95 { transform: scale(0.95); }
+.scale-100 { transform: scale(1); }
+.scale-105 { transform: scale(1.05); }
+.translate-x-0 { transform: translateX(0); }
+.translate-y-0 { transform: translateY(0); }
+
+// =============================================================================
+// COMPONENT BASE CLASSES
+// =============================================================================
+
+// Glass morphism component
+.glass {
+  @include glass-effect;
+}
+
+// Card component
+.card {
+  background: $bg-secondary;
+  border: 1px solid $border-primary;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  transition: $transition-all;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    border-color: $border-secondary;
+  }
+}
+
+// Button base styles
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-3 $space-4;
+  font-size: $text-sm;
+  font-weight: $font-weight-medium;
+  border-radius: $radius-md;
+  transition: $transition-all;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  // Button variants
+  &.btn-primary {
+    background: $gradient-primary;
+    color: white;
+    box-shadow: $shadow-primary;
+    
+    &:hover:not(:disabled) {
+      background: $gradient-primary-hover;
+      box-shadow: $shadow-lg;
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  &.btn-secondary {
+    background: $bg-secondary;
+    color: $text-primary;
+    border: 1px solid $border-primary;
+    
+    &:hover:not(:disabled) {
+      background: $bg-tertiary;
+      border-color: $border-secondary;
+    }
+  }
+  
+  &.btn-ghost {
+    background: transparent;
+    color: $text-secondary;
+    
+    &:hover:not(:disabled) {
+      background: $bg-secondary;
+      color: $text-primary;
+    }
+  }
+  
+  // Button sizes
+  &.btn-sm {
+    padding: $space-2 $space-3;
+    font-size: $text-xs;
+  }
+  
+  &.btn-lg {
+    padding: $space-4 $space-6;
+    font-size: $text-base;
+  }
+}
+
+// Input base styles
+.input {
+  display: block;
+  width: 100%;
+  padding: $space-3 $space-4;
+  font-size: $text-sm;
+  background: $bg-secondary;
+  border: 2px solid $border-primary;
+  border-radius: $radius-md;
+  color: $text-primary;
+  transition: $transition-colors;
+  
+  &::placeholder {
+    color: $text-muted;
+  }
+  
+  &:focus {
+    border-color: $primary-blue;
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+  }
+  
+  &:disabled {
+    background: $bg-primary;
+    color: $text-disabled;
+    cursor: not-allowed;
+  }
+}
+
+// Badge component
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: $space-1 $space-2;
+  font-size: $text-xs;
+  font-weight: $font-weight-medium;
+  border-radius: $radius-full;
+  
+  &.badge-primary {
+    background: rgba(0, 212, 255, 0.1);
+    color: $primary-blue;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+  }
+  
+  &.badge-success {
+    background: rgba(16, 185, 129, 0.1);
+    color: $success-green;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+  
+  &.badge-warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: $warning-amber;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+  }
+  
+  &.badge-error {
+    background: rgba(239, 68, 68, 0.1);
+    color: $error-red;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+}
+
+// Tooltip component
+.tooltip {
+  position: absolute;
+  z-index: $z-tooltip;
+  padding: $space-2 $space-3;
+  font-size: $text-xs;
+  font-weight: $font-weight-medium;
+  color: white;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity $transition-fast;
+  
+  &.show {
+    opacity: 1;
+  }
+}
+
+// =============================================================================
+// SCROLLBAR STYLING
+// =============================================================================
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-primary;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $border-secondary;
+  border-radius: $radius-full;
+  
+  &:hover {
+    background: lighten($border-secondary, 10%);
+  }
+}
+
+::-webkit-scrollbar-corner {
+  background: $bg-primary;
+}
+
+// Firefox scrollbar
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $border-secondary $bg-primary;
+}
+
+// =============================================================================
+// ACCESSIBILITY FEATURES
+// =============================================================================
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: #ffffff;
+    --bg-primary: #000000;
+    --border-primary: #ffffff;
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Focus visible for keyboard navigation
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus\:ring-2:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px $focus-ring-color;
+}
+
+// Screen reader only content
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// =============================================================================
+// PRINT STYLES
+// =============================================================================
+
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+}

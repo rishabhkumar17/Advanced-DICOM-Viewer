@@ -1,0 +1,56 @@
+.annotation-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  pointer-events: auto;
+  
+  // Ensure canvas is properly contained
+  canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  // When annotation tool is active
+  &.annotation-active {
+    cursor: crosshair !important;
+  }
+  
+  // Focus styles
+  &:focus {
+    outline: none;
+  }
+}
+
+// When annotation tool is NOT active, allow some pointer events but not all
+.annotation-overlay:not(.annotation-active) {
+  pointer-events: auto; // Allow selection clicks
+  
+  canvas {
+    pointer-events: auto;
+  }
+}
+
+// Status indicator when annotation mode is active
+.annotation-overlay.annotation-active::before {
+  content: 'ANNOTATION MODE - Click and drag to draw';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  z-index: 1000;
+  pointer-events: none;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

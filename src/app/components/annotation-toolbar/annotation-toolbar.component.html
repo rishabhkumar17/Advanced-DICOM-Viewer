@@ -1,0 +1,131 @@
+<div class="annotation-toolbar">
+  <!-- Toolbar Header -->
+  <div class="toolbar-header">
+    <div class="header-content">
+      <h3 class="toolbar-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
+          <path d="M12 20h9"/>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        Medical Annotation Tools
+      </h3>
+      <div class="tool-status" [class.active]="selectedTool">
+        <span class="status-text">{{ selectedTool ? 'Drawing Mode' : 'Navigation Mode' }}</span>
+        <div class="status-indicator" [class.active]="selectedTool"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool Groups -->
+  <div class="tool-groups">
+    <!-- Navigation Group -->
+    <div class="tool-group navigation-group">
+      <h4 class="group-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-icon">
+          <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+        </svg>
+        Navigation
+      </h4>
+      <div class="group-tools">
+        <!-- Navigation Mode (Default) -->
+        <button 
+          class="medical-tool-button navigation"
+          [class.active]="!selectedTool"
+          (click)="onDeactivateTools()"
+          title="Navigation mode - Pan, zoom, and window/level">
+          <div class="button-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+            </svg>
+          </div>
+          <div class="button-details">
+            <span class="button-label">Navigate</span>
+            <span class="button-description">Pan, zoom, scroll slices</span>
+          </div>
+
+        </button>
+      </div>
+    </div>
+
+    <!-- Annotation Group -->
+    <div class="tool-group annotation-group">
+      <h4 class="group-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-icon">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        </svg>
+        Annotation Tools
+      </h4>
+      <div class="group-tools">
+
+        <!-- Bounding Box Annotation Tool -->
+        <button 
+          class="medical-tool-button annotation"
+          [class.active]="selectedTool === 'RectangleRoi'"
+          (click)="onToolClick('RectangleRoi')"
+          title="Draw bounding box annotations">
+          <div class="button-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            </svg>
+          </div>
+          <div class="button-details">
+            <span class="button-label">Bounding Box</span>
+            <span class="button-description">Draw rectangular annotations</span>
+          </div>
+
+        </button>
+      </div>
+    </div>
+
+    <!-- Actions Group -->
+    <div class="tool-group actions-group">
+      <h4 class="group-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-icon">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        Actions
+      </h4>
+      <div class="group-tools">
+
+        <!-- Clear All Annotations -->
+        <button 
+          class="medical-tool-button danger"
+          (click)="onClearAnnotations()"
+          title="Clear all annotations">
+          <div class="button-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3,6 5,6 21,6"/>
+              <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+            </svg>
+          </div>
+          <div class="button-details">
+            <span class="button-label">Clear All</span>
+            <span class="button-description">Remove all annotations</span>
+          </div>
+
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Usage Guide -->
+  <div class="usage-guide">
+    <div class="guide-section" *ngIf="selectedTool === 'RectangleRoi'">
+      <h4 class="guide-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="guide-icon">
+          <path d="M9 11H1v6h8v-6zM23 11h-8v6h8v-6z"/>
+          <path d="M11 1v22"/>
+        </svg>
+        Drawing Instructions
+      </h4>
+      <ol class="instructions-list">
+        <li>Position cursor over the image</li>
+        <li>Click and drag to draw rectangle</li>
+        <li>Release to save annotation</li>
+        <li>Click annotation to select/edit</li>
+      </ol>
+    </div>
+
+
+  </div>
+</div>

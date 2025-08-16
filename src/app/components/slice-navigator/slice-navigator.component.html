@@ -1,0 +1,98 @@
+<div class="slice-navigator" *ngIf="totalSlices > 0">
+  <!-- Single Slice Message -->
+  <div class="single-slice" *ngIf="totalSlices === 1">
+    <div class="single-slice-content">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="slice-icon">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <path d="M9 9h6v6H9z"/>
+      </svg>
+      <span class="slice-info">Single slice DICOM</span>
+      <span class="annotation-count" *ngIf="annotationCount > 0">
+        {{ annotationCount }} annotation{{ annotationCount > 1 ? 's' : '' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Enhanced Multi-slice Navigation -->
+  <div class="multi-slice" *ngIf="totalSlices > 1">
+    <div class="enhanced-nav">
+      <!-- Left Section: Slice Info -->
+      <div class="nav-left">
+        <div class="slice-info">
+          <div class="slice-counter">
+            <span class="current">{{ currentSlice + 1 }}</span>
+            <span class="separator">/</span>
+            <span class="total">{{ totalSlices }}</span>
+          </div>
+          <span class="annotation-badge" *ngIf="annotationCount > 0">{{ annotationCount }}</span>
+        </div>
+      </div>
+      
+      <!-- Center Section: Progress Bar -->
+      <div class="nav-center">
+        <div class="progress-container" 
+             (click)="onProgressBarClick($event)"
+             (mousedown)="onProgressBarMouseDown($event)"
+             (mousemove)="onProgressBarMouseMove($event)"
+             (mouseup)="onProgressBarMouseUp($event)"
+             (mouseleave)="onProgressBarMouseLeave($event)">
+          <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="getSliceProgress()"></div>
+          </div>
+          <div class="progress-thumb" 
+               [style.left.%]="getSliceProgress()"
+               (mousedown)="onThumbMouseDown($event)"
+               (mousemove)="onThumbMouseMove($event)"
+               (mouseup)="onThumbMouseUp($event)"></div>
+        </div>
+      </div>
+      
+      <!-- Right Section: Navigation Controls -->
+      <div class="nav-right">
+        <div class="nav-controls">
+          <button 
+            class="nav-btn"
+            [disabled]="currentSlice === 0"
+            (click)="firstSlice()"
+            title="First slice">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="11,19 2,12 11,5 11,19"></polygon>
+              <polygon points="22,19 13,12 22,5 22,19"></polygon>
+            </svg>
+          </button>
+
+          <button 
+            class="nav-btn"
+            [disabled]="currentSlice === 0"
+            (click)="previousSlice()"
+            title="Previous slice">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="15,18 9,12 15,6"></polygon>
+            </svg>
+          </button>
+
+          <button 
+            class="nav-btn"
+            [disabled]="currentSlice === totalSlices - 1"
+            (click)="nextSlice()"
+            title="Next slice">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="9,18 15,12 9,6"></polygon>
+            </svg>
+          </button>
+
+          <button 
+            class="nav-btn"
+            [disabled]="currentSlice === totalSlices - 1"
+            (click)="lastSlice()"
+            title="Last slice">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13,5 22,12 13,19 13,5"></polygon>
+              <polygon points="2,5 11,12 2,19 2,5"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

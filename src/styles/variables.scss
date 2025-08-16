@@ -1,0 +1,268 @@
+// Advanced DICOM Viewer Design System
+// Professional Dark Theme with Medical Imaging Optimizations
+
+// =============================================================================
+// COLOR PALETTE - ADVANCED DARK THEME
+// =============================================================================
+
+// Primary Dark Colors
+$dark-bg: #0f1419;              // Main background - deep charcoal
+$dark-surface: #1a1f2e;         // Cards, panels - midnight blue
+$dark-elevated: #252b3b;        // Elevated surfaces - slate
+$dark-overlay: #2d3748;         // Overlays and hover states
+
+// Medical Imaging Optimized Colors
+$medical-black: #000000;        // Pure black for DICOM background
+$medical-overlay: rgba(0, 0, 0, 0.8); // Semi-transparent overlays
+$contrast-border: #3a4556;      // Subtle borders for medical images
+
+// Accent Colors - Carefully selected for medical professionals
+$primary-blue: #00d4ff;         // Primary actions - cyan blue
+$primary-blue-hover: #00bfeb;   // Hover state
+$primary-blue-active: #00a8d1;  // Active state
+
+$secondary-purple: #8b5cf6;     // Secondary elements - violet
+$secondary-purple-hover: #7c3aed;
+$secondary-purple-active: #6d28d9;
+
+// Status Colors
+$success-green: #10b981;        // Success states - emerald
+$success-green-hover: #059669;
+$warning-amber: #f59e0b;        // Warnings - amber
+$warning-amber-hover: #d97706;
+$error-red: #ef4444;           // Errors - red
+$error-red-hover: #dc2626;
+$info-blue: #3b82f6;           // Info - blue
+$info-blue-hover: #2563eb;
+
+// Text Colors - Optimized for readability in dark environments
+$text-primary: #ffffff;         // Main text - pure white
+$text-secondary: #94a3b8;       // Secondary text - cool gray
+$text-muted: #64748b;           // Muted text - darker gray
+$text-disabled: #475569;        // Disabled text
+$text-inverse: #1f2937;         // Text on light backgrounds
+
+// Background Variations
+$bg-primary: $dark-bg;
+$bg-secondary: $dark-surface;
+$bg-tertiary: $dark-elevated;
+$bg-glass: rgba(26, 31, 46, 0.8);
+$bg-modal: rgba(15, 20, 25, 0.95);
+
+// Border Colors
+$border-primary: #374151;       // Primary borders
+$border-secondary: #4b5563;     // Secondary borders
+$border-focus: $primary-blue;   // Focus indicators
+$border-error: $error-red;      // Error borders
+$border-success: $success-green; // Success borders
+
+// =============================================================================
+// GRADIENTS - PROFESSIONAL MEDICAL THEME
+// =============================================================================
+
+$gradient-primary: linear-gradient(135deg, $primary-blue 0%, $secondary-purple 100%);
+$gradient-surface: linear-gradient(145deg, $dark-surface 0%, $dark-elevated 100%);
+$gradient-glass: linear-gradient(145deg, 
+  rgba(26, 31, 46, 0.9) 0%, 
+  rgba(37, 43, 59, 0.7) 100%
+);
+$gradient-medical: linear-gradient(180deg, $medical-black 0%, #1a1a1a 100%);
+
+// Hover gradients
+$gradient-primary-hover: linear-gradient(135deg, $primary-blue-hover 0%, $secondary-purple-hover 100%);
+$gradient-surface-hover: linear-gradient(145deg, $dark-elevated 0%, lighten($dark-elevated, 5%) 100%);
+
+// =============================================================================
+// TYPOGRAPHY - INTER FONT SYSTEM
+// =============================================================================
+
+// Font Stack
+$font-family-primary: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+$font-family-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Courier New', monospace;
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Font Sizes - Perfect scale for medical applications
+$text-xs: 0.75rem;      // 12px - Small labels
+$text-sm: 0.875rem;     // 14px - Secondary text
+$text-base: 1rem;       // 16px - Body text
+$text-lg: 1.125rem;     // 18px - Large text
+$text-xl: 1.25rem;      // 20px - Headings
+$text-2xl: 1.5rem;      // 24px - Large headings
+$text-3xl: 1.875rem;    // 30px - Page titles
+$text-4xl: 2.25rem;     // 36px - Hero titles
+
+// Line Heights
+$leading-tight: 1.25;
+$leading-normal: 1.5;
+$leading-relaxed: 1.625;
+
+// Letter Spacing
+$tracking-tight: -0.025em;
+$tracking-normal: 0;
+$tracking-wide: 0.025em;
+
+// =============================================================================
+// SPACING - 8PX GRID SYSTEM
+// =============================================================================
+
+$space-1: 0.25rem;      // 4px
+$space-2: 0.5rem;       // 8px
+$space-3: 0.75rem;      // 12px
+$space-4: 1rem;         // 16px
+$space-5: 1.25rem;      // 20px
+$space-6: 1.5rem;       // 24px
+$space-8: 2rem;         // 32px
+$space-10: 2.5rem;      // 40px
+$space-12: 3rem;        // 48px
+$space-16: 4rem;        // 64px
+$space-20: 5rem;        // 80px
+$space-24: 6rem;        // 96px
+
+// =============================================================================
+// BORDER RADIUS - MODERN ROUNDED CORNERS
+// =============================================================================
+
+$radius-none: 0;
+$radius-sm: 0.375rem;   // 6px - Small elements
+$radius-md: 0.5rem;     // 8px - Standard
+$radius-lg: 0.75rem;    // 12px - Cards
+$radius-xl: 1rem;       // 16px - Large cards
+$radius-2xl: 1.5rem;    // 24px - Hero elements
+$radius-full: 9999px;   // Circular
+
+// =============================================================================
+// SHADOWS - DEPTH AND ELEVATION
+// =============================================================================
+
+// Subtle shadows for dark theme
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+
+// Colored shadows for interactive elements
+$shadow-primary: 0 8px 24px rgba(0, 212, 255, 0.25);
+$shadow-secondary: 0 8px 24px rgba(139, 92, 246, 0.25);
+$shadow-success: 0 8px 24px rgba(16, 185, 129, 0.25);
+$shadow-error: 0 8px 24px rgba(239, 68, 68, 0.25);
+
+// Glass morphism shadow
+$shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3), 
+               inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+// =============================================================================
+// TRANSITIONS - SMOOTH ANIMATIONS
+// =============================================================================
+
+$transition-fast: 0.15s ease;
+$transition-normal: 0.2s ease;
+$transition-slow: 0.3s ease;
+$transition-slower: 0.5s ease;
+
+// Specific transition types
+$transition-colors: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+$transition-transform: transform 0.2s ease;
+$transition-opacity: opacity 0.2s ease;
+$transition-all: all 0.2s ease;
+
+// =============================================================================
+// Z-INDEX LAYERS
+// =============================================================================
+
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-fixed: 300;
+$z-modal-backdrop: 400;
+$z-modal: 500;
+$z-popover: 600;
+$z-tooltip: 700;
+$z-toast: 800;
+
+// =============================================================================
+// BREAKPOINTS - RESPONSIVE DESIGN
+// =============================================================================
+
+$breakpoint-sm: 640px;   // Small devices
+$breakpoint-md: 768px;   // Medium devices
+$breakpoint-lg: 1024px;  // Large devices
+$breakpoint-xl: 1280px;  // Extra large devices
+$breakpoint-2xl: 1536px; // 2X Extra large devices
+
+// =============================================================================
+// COMPONENT SPECIFIC VARIABLES
+// =============================================================================
+
+// Buttons
+$button-height-sm: 32px;
+$button-height-md: 40px;
+$button-height-lg: 48px;
+$button-padding-x: $space-4;
+$button-padding-y: $space-2;
+
+// Forms
+$input-height: 44px;
+$input-padding-x: $space-4;
+$input-border-width: 2px;
+
+// Navigation
+$nav-height: 64px;
+$sidebar-width: 320px;
+$sidebar-width-collapsed: 80px;
+
+// Medical viewer specific
+$viewer-toolbar-width: 280px;
+$viewer-annotation-width: 380px;
+$viewer-min-height: 400px;
+
+// Accessibility
+$focus-ring-width: 2px;
+$focus-ring-offset: 2px;
+$focus-ring-color: $primary-blue;
+
+// =============================================================================
+// UTILITY MIXINS
+// =============================================================================
+
+// Glass morphism effect
+@mixin glass-effect {
+  background: $bg-glass;
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: $shadow-glass;
+}
+
+// Focus ring for accessibility
+@mixin focus-ring {
+  outline: $focus-ring-width solid $focus-ring-color;
+  outline-offset: $focus-ring-offset;
+}
+
+// Truncate text
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Flex center
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Gradient text
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

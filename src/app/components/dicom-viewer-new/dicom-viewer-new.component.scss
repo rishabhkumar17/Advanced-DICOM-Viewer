@@ -1,0 +1,153 @@
+// Loading Overlay
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  
+  .loading-content {
+    text-align: center;
+    color: white;
+    max-width: 400px;
+    padding: 2rem;
+  }
+  
+  .loading-spinner {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 2rem;
+    
+    .spinner-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 4px solid transparent;
+      border-top: 4px solid #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      
+      &:nth-child(2) {
+        border-top-color: #10b981;
+        animation-delay: 0.2s;
+      }
+      
+      &:nth-child(3) {
+        border-top-color: #f59e0b;
+        animation-delay: 0.4s;
+      }
+    }
+  }
+  
+  .loading-text {
+    h3 {
+      margin: 0 0 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #e5e9f0;
+    }
+    
+    p {
+      margin: 0 0 1.5rem;
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+  }
+  
+  .loading-progress {
+    margin-top: 1.5rem;
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #3b82f6, #10b981);
+        border-radius: 4px;
+        transition: width 0.3s ease;
+      }
+    }
+    
+    .progress-text {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.cs3d-vp {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #000;
+  overflow: hidden;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  // When annotation tool is active
+  &.annotation-active {
+    cursor: crosshair !important;
+    box-shadow: inset 0 0 0 3px rgba(33, 150, 243, 0.5);
+    
+    &::after {
+      content: 'ANNOTATION MODE - Click and drag to draw bounding boxes';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(33, 150, 243, 0.9);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 1000;
+      pointer-events: none;
+      animation: fadeIn 0.3s ease;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  // Ensure the viewport can receive mouse events and is properly visible
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  // Improve image visibility
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}

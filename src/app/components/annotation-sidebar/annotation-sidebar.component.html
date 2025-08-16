@@ -1,0 +1,124 @@
+<div class="annotation-sidebar">
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="stats.totalCount === 0">
+    <div class="empty-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <path d="M9 9h6v6H9z"></path>
+      </svg>
+    </div>
+    <p class="empty-text">
+      No annotations yet. Select the bounding box tool and draw on the image to create annotations.
+    </p>
+  </div>
+
+  <!-- Medical Grade Annotations Panel -->
+  <div class="medical-annotations-panel" *ngIf="stats.totalCount > 0">
+    <!-- Enhanced Summary Header -->
+    <div class="medical-summary-header">
+      <div class="summary-stats">
+        <div class="stat-item primary">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <path d="M9 9h6v6H9z"></path>
+            </svg>
+          </div>
+          <div class="stat-details">
+            <span class="stat-value">{{ stats.totalCount }}</span>
+            <span class="stat-label">Total Annotations</span>
+          </div>
+        </div>
+        <div class="stat-item secondary">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3h18v18H3zM12 3v18"></path>
+            </svg>
+          </div>
+          <div class="stat-details">
+            <span class="stat-value">{{ stats.slicesWithAnnotations }}</span>
+            <span class="stat-label">Active Slices</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrollable Annotations Container -->
+    <div class="scrollable-annotations-container" #scrollContainer>
+      <div class="annotations-list-enhanced">
+        <div 
+          *ngFor="let sliceIndex of getSortedSliceIndices(); trackBy: trackBySliceIndex" 
+          class="medical-slice-group">
+          
+          <!-- Enhanced Slice Header -->
+          <div class="medical-slice-header" [class.current-slice]="sliceIndex === currentSlice">
+            <button 
+              class="medical-slice-button"
+              (click)="navigateToSlice.emit(sliceIndex)"
+              [title]="'Navigate to slice ' + (sliceIndex + 1)">
+              <div class="slice-indicator">
+                <div class="slice-number-badge">{{ sliceIndex + 1 }}</div>
+                <div class="slice-info">
+                  <span class="slice-label">Slice {{ sliceIndex + 1 }}</span>
+                  <span class="annotation-count-badge">{{ getAnnotationsBySlice().get(sliceIndex)?.length }} annotations</span>
+                </div>
+              </div>
+              <div class="navigation-indicator">
+                <svg class="nav-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9,18 15,12 9,6"></polyline>
+                </svg>
+              </div>
+            </button>
+          </div>
+
+          <!-- Enhanced Annotations for this slice -->
+          <div class="medical-annotations-group">
+            <div 
+              *ngFor="let annotation of getAnnotationsBySlice().get(sliceIndex); trackBy: trackByAnnotationId" 
+              class="medical-annotation-card"
+              [class.selected]="selectedAnnotation?.id === annotation.id"
+              (click)="onAnnotationClick(annotation)"
+              (mouseenter)="onAnnotationHover(annotation, true)"
+              (mouseleave)="onAnnotationHover(annotation, false)">
+              
+              <div class="annotation-content">
+                <div class="annotation-header">
+                  <div class="annotation-id">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="annotation-icon">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                      <path d="M9 9h6v6H9z"></path>
+                    </svg>
+                    <span class="annotation-label">{{ annotation.label || 'Annotation ' + (getAnnotationsBySlice().get(sliceIndex)!.indexOf(annotation) + 1) }}</span>
+                  </div>
+                  <div class="annotation-timestamp">{{ formatTimestamp(annotation.timestamp) }}</div>
+                </div>
+                <div class="annotation-measurements">
+                  <div class="measurement-item">
+                    <span class="measurement-label">Position:</span>
+                    <span class="measurement-value">{{ formatCoordinates(annotation) }}</span>
+                  </div>
+                  <div class="measurement-item">
+                    <span class="measurement-label">Dimensions:</span>
+                    <span class="measurement-value">{{ formatDimensions(annotation) }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <button 
+                class="medical-delete-button"
+                (click)="onDeleteAnnotation(annotation, $event)"
+                title="Delete annotation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3,6 5,6 21,6"></polyline>
+                  <path d="M19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

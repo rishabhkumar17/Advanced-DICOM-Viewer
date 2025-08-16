@@ -1,0 +1,416 @@
+.annotation-toolbar {
+  background: linear-gradient(135deg, #1e293b, #334155);
+  border: 1px solid #475569;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: auto; // Allow scrolling if content exceeds container
+  height: 100%;
+  min-height: 0; // Allow flexible sizing
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar-header {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  padding: 0.75rem 1rem; // Reduced padding for compactness
+  border-bottom: 1px solid #475569;
+  flex-shrink: 0;
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .toolbar-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      
+      .title-icon {
+        width: 20px;
+        height: 20px;
+        color: #3b82f6;
+      }
+    }
+    
+    .tool-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      
+      .status-text {
+        font-size: 0.875rem;
+        color: #94a3b8;
+        font-weight: 500;
+      }
+      
+      .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #64748b;
+        transition: all 0.3s ease;
+        
+        &.active {
+          background: #10b981;
+          box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+      }
+    }
+  }
+}
+
+.tool-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.tool-group {
+  border-bottom: 1px solid #475569;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  .group-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.5rem 1rem; // Reduced padding for compactness
+    font-size: 0.8rem; // Slightly smaller font
+    font-weight: 600;
+    color: #94a3b8;
+    background: rgba(51, 65, 85, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    
+    .group-icon {
+      width: 16px;
+      height: 16px;
+      color: #64748b;
+    }
+  }
+  
+  .group-tools {
+    padding: 0.75rem;
+  }
+}
+
+.medical-tool-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; // Reduced gap
+  width: 100%;
+  padding: 0.75rem; // Reduced padding for compactness
+  background: rgba(51, 65, 85, 0.3);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  .button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; // Smaller icon container
+    height: 36px; // Smaller icon container
+    background: rgba(71, 85, 105, 0.5);
+    border: 1px solid #64748b;
+    border-radius: 6px;
+    flex-shrink: 0;
+    
+    svg {
+      width: 18px; // Smaller icon
+      height: 18px; // Smaller icon
+      color: #94a3b8;
+      transition: color 0.3s ease;
+    }
+  }
+  
+  .button-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    
+    .button-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+    
+    .button-description {
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+  }
+  
+  .shortcut {
+        display: flex;
+        align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 24px;
+    background: rgba(71, 85, 105, 0.7);
+    border: 1px solid #64748b;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+  }
+  
+  &:hover:not(.active) {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: #3b82f6;
+    transform: translateY(-1px);
+    
+    .button-icon {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: #3b82f6;
+      
+      svg {
+        color: #3b82f6;
+      }
+    }
+    
+    .shortcut {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+  }
+  
+  &.active {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border-color: #1d4ed8;
+    color: white;
+    box-shadow: 
+      0 0 0 2px rgba(59, 130, 246, 0.4),
+      0 4px 12px rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+    
+    &.annotation::after {
+      content: '✨';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #10b981;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+    display: flex;
+    align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      animation: pulse 2s infinite;
+    }
+
+
+    
+    .button-icon {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+      
+      svg {
+        color: white;
+      }
+    }
+    
+    .button-details {
+      .button-label {
+        color: white;
+      }
+      
+      .button-description {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+    
+    .shortcut {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+  }
+  
+  &.danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+    
+    .button-icon {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      
+      svg {
+        color: #ef4444;
+      }
+    }
+  }
+}
+
+.usage-guide {
+  background: rgba(51, 65, 85, 0.2);
+  border-top: 1px solid #475569;
+  margin-top: auto;
+  
+  .guide-section, .shortcuts-section {
+    padding: 1rem 1.25rem;
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid #475569;
+    }
+  }
+  
+  .guide-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.75rem 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    
+    .guide-icon {
+      width: 16px;
+      height: 16px;
+      color: #64748b;
+    }
+  }
+  
+  .instructions-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    
+    li {
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      color: #94a3b8;
+      line-height: 1.4;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  .shortcuts-grid {
+      display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem;
+      
+      .shortcut-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(71, 85, 105, 0.3);
+      border: 1px solid #475569;
+      border-radius: 6px;
+      
+      kbd {
+      display: flex;
+      align-items: center;
+        justify-content: center;
+        min-width: 24px;
+        height: 20px;
+        background: #475569;
+        border: 1px solid #64748b;
+        border-radius: 4px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #e2e8f0;
+      }
+      
+      span {
+        font-size: 0.75rem;
+        color: #94a3b8;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .annotation-toolbar {
+    height: auto;
+    
+    .tool-groups {
+      flex-direction: row;
+      overflow-x: auto;
+      flex: none;
+    }
+    
+    .tool-group {
+      min-width: 200px;
+      border-right: 1px solid #475569;
+      border-bottom: none;
+      
+      &:last-child {
+        border-right: none;
+      }
+    }
+    
+    .usage-guide {
+      display: none; // Hide on tablets to save space
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .annotation-toolbar {
+    .medical-tool-button {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.75rem;
+      padding: 0.75rem 0.5rem;
+      
+      .button-details {
+        align-items: center;
+        
+        .button-description {
+          display: none;
+        }
+      }
+      
+      .button-icon {
+        width: 36px;
+        height: 36px;
+        
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+    
+    .shortcuts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

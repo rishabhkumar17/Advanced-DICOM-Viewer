@@ -1,0 +1,111 @@
+<div class="app-container">
+  <!-- Simple Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <h1 class="app-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          <path d="M15 3v6h6"></path>
+        </svg>
+        DICOM Viewer
+      </h1>
+      
+      <!-- Sidebar Toggle -->
+      <button 
+        class="sidebar-toggle"
+        (click)="toggleSidebar()"
+        *ngIf="hasData"
+        [attr.aria-label]="isSidebarCollapsed ? 'Show annotations' : 'Hide annotations'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="9" y1="9" x2="15" y2="9"></line>
+          <line x1="9" y1="15" x2="15" y2="15"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Error Banner -->
+  <div class="error-banner" *ngIf="hasError" role="alert">
+    <span>{{ errorMessage }}</span>
+    <button class="error-close" (click)="clearError()" aria-label="Close error">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- File Loader -->
+    <div class="file-loader-section" *ngIf="showFileLoader">
+      <app-file-loader 
+        (fileLoaded)="onFileLoaded($event)"
+        (loadingStateChanged)="onLoadingStateChanged($event)">
+      </app-file-loader>
+    </div>
+
+    <!-- Viewer Layout -->
+    <div class="viewer-layout" *ngIf="hasData" [class.sidebar-collapsed]="isSidebarCollapsed">
+      <!-- Annotation Toolbar -->
+      <div class="toolbar-section">
+        <app-annotation-toolbar
+          (toolSelected)="onAnnotationToolSelected($event)"
+          (clearAnnotations)="onClearAnnotations()"
+          (deactivateTools)="onDeactivateAnnotationTools()">
+        </app-annotation-toolbar>
+      </div>
+
+      <!-- DICOM Viewer -->
+      <div class="viewer-section">
+        <app-dicom-viewer-new *ngIf="file"
+          #dicomViewer
+          [file]="file"
+          (annotationCreated)="onAnnotationCreated($event)"
+          (annotationUpdated)="onAnnotationUpdated($event)">
+        </app-dicom-viewer-new>
+        
+        <!-- Image Info Overlay -->
+        <div class="image-info" *ngIf="currentSeries">
+          <span>Slice {{ currentSliceIndex + 1 }}/{{ currentSeries.sliceCount || '1' }}</span>
+          <span *ngIf="annotations.length > 0">Annotations: {{ annotations.length }}</span>
+        </div>
+      </div>
+
+      <!-- Annotation Sidebar -->
+      <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
+        <div class="sidebar-header">
+          <h3>Annotations</h3>
+          <button class="sidebar-close" (click)="toggleSidebar()" aria-label="Close sidebar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="sidebar-content">
+          <app-annotation-sidebar
+            (navigateToSlice)="onNavigateToSlice($event)"
+            (annotationSelected)="onAnnotationSelected($event)">
+          </app-annotation-sidebar>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Slice Navigator -->
+    <div class="slice-navigator-section" *ngIf="hasData">
+      <app-slice-navigator
+        (sliceChanged)="onSliceChanged($event)">
+      </app-slice-navigator>
+    </div>
+  </main>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading DICOM file...</div>
+    </div>
+  </div>
+</div>

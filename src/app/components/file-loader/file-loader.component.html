@@ -1,0 +1,97 @@
+<div class="file-loader">
+  <!-- Main Drop Zone -->
+  <div 
+    class="drop-zone"
+    [class.drag-over]="isDragOver"
+    [class.loading]="isLoading"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+    [attr.aria-label]="'Drag and drop DICOM files or click to select'"
+    role="button"
+    tabindex="0">
+    
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">{{ loadingMessage }}</div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="loadingProgress"></div>
+      </div>
+      <div class="progress-text">{{ loadingProgress.toFixed(0) }}%</div>
+    </div>
+
+    <!-- Default State -->
+    <div *ngIf="!isLoading" class="drop-zone-content">
+      <div class="drop-zone-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14,2 14,8 20,8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10,9 9,9 8,9"></polyline>
+        </svg>
+      </div>
+      
+      <h3 class="drop-zone-title">Load DICOM Files</h3>
+      <p class="drop-zone-subtitle">
+        Drag and drop your .dcm files here, or click to browse
+      </p>
+      
+      <input 
+        type="file" 
+        id="file-input"
+        class="file-input" 
+        multiple 
+        accept=".dcm,application/dicom"
+        (change)="onFileSelect($event)"
+        aria-label="Select DICOM files">
+      
+      <label for="file-input" class="browse-button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7,10 12,15 17,10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Browse Files
+      </label>
+      
+      <div class="supported-formats">
+        <small>Supported formats: .dcm, .dicom</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message" role="alert">
+    <div class="error-content">
+      <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="15" y1="9" x2="9" y2="15"></line>
+        <line x1="9" y1="9" x2="15" y2="15"></line>
+      </svg>
+      <span class="error-text">{{ errorMessage }}</span>
+      <button 
+        class="error-close"
+        (click)="clearError()"
+        aria-label="Close error message">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+
+
+  <!-- Instructions -->
+  <div class="instructions">
+    <h4 class="instructions-title">Instructions</h4>
+    <ul class="instructions-list">
+      <li>Select single or multiple DICOM (.dcm) files</li>
+      <li>Multiple files will be loaded as a series for slice navigation</li>
+      <li>Supported formats: .dcm, .dicom files</li>
+    </ul>
+  </div>
+</div>
